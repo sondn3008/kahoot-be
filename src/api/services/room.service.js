@@ -8,7 +8,6 @@ const createRoom = async (user_id) => {
   };
 
   const pin = await helper.createPin();
-  console.log(pin);
 
   const room = await roomModel.findOne({ where: { pin: pin.toString() }, raw: true });
   if (room != null) {
@@ -36,6 +35,51 @@ const createRoom = async (user_id) => {
   return result;
 };
 
+const getAllRoomByUserId = async (user_id) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const listRoom = await roomModel.findAll({ where: { user_id: user_id }, raw: true });
+
+  result.statusCode = 200;
+
+  result.json = {
+    data: listRoom,
+    message: 'Get All Room Success',
+  };
+
+  return result;
+};
+
+const deleteRoom = async (pin) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const room = await roomModel.findOne({ where: { pin: pin }, raw: true });
+
+  if (room === null) {
+    result.statusCode = 4000;
+    result.json = {
+      message: 'Room is not Exist!',
+    };
+  }
+
+  const ret = await roomModel.destroy({ where: { pin: pin }, raw: true });
+
+  result.statusCode = 200;
+  result.json = {
+    message: 'Delete Room Success!',
+  };
+
+  return result;
+};
+
 export default {
   createRoom,
+  getAllRoomByUserId,
+  deleteRoom,
 };
