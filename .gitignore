@@ -1,8 +1,3 @@
 node_modules
 dist
-.idea
-.env
-/mochawesome-report
-.prettierrc
-.vscode
 build
