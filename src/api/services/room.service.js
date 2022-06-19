@@ -1,4 +1,5 @@
 import roomModel from '../models/room.model';
+import userModel from '../models/user.model';
 import helper from '../helpers/utility';
 
 const createRoom = async (user_id) => {
@@ -8,6 +9,15 @@ const createRoom = async (user_id) => {
   };
 
   const pin = await helper.createPin();
+
+  const user = await userModel.findOne({ where: { id: user_id }, raw: true });
+  if (user === null) {
+    result.statusCode = 400;
+    result.json = {
+      message: 'User is not Exist.',
+    };
+    return result;
+  }
 
   const room = await roomModel.findOne({ where: { pin: pin.toString() }, raw: true });
   if (room != null) {

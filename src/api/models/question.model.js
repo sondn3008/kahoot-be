@@ -1,8 +1,8 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../config/db.config.js';
 
-class User extends Model {}
-User.init(
+class Question extends Model {}
+Question.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,37 +10,39 @@ User.init(
       autoIncrementIdentity: true,
       primaryKey: true,
     },
-    name: {
+    room_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    question: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image: {
-      type: DataTypes.STRING,
-    },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-    },
-    password: {
+    answer_A: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    address: {
+    answer_B: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    phone: {
+    answer_C: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    rfToken: {
+    answer_D: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+    },
+    answer_true: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'user',
+    modelName: 'question',
   },
 );
 
-export default User;
+export default Question;

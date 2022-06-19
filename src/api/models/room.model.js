@@ -17,6 +17,7 @@ Room.init(
     pin: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   {
