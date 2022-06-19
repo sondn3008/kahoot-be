@@ -1,0 +1,39 @@
+{
+  "name": "backend",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "backend kahoot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/babel/bin/babel.js src --source-maps --out-dir dist",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node  src/server.js",
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node  src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/preset-env": "^7.18.2",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.1.0",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "npm-run-all": "^4.1.5",
+    "randomstring": "^1.2.2",
+    "sequelize": "^6.20.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "nodemon": "^2.0.16"
+  }
+}
