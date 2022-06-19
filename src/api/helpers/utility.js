@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import randomstring from 'randomstring';
+import randomNumber from 'random-number';
 
 const slugify = (text) => {
   return text
@@ -56,6 +57,14 @@ const createRftoken = async (accessToken) => {
   return randomstring.generate(80);
 };
 
+const createPin = async () => {
+  return randomNumber({
+    min: 100000,
+    max: 999999,
+    integer: true,
+  });
+};
+
 export default {
   slugify,
   validPassword,
@@ -64,4 +73,5 @@ export default {
   makeAccessToken,
   verifyAccessToken,
   createRftoken,
+  createPin,
 };

@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 // routes
 import cors from 'cors';
 import userRouter from './api/routers/user.router';
+import roomRouter from './api/routers/room.router';
 
 // middlewares
 import authRouter from './api/middlewares/auth.mdw.js';
@@ -47,7 +48,8 @@ app.get('/', function (req, res) {
 
 // app use route
 app.use('/api/user', userRouter);
-app.use('/api/auth', authRouter);
+// app.use('/api/auth', authRouter);
+app.use('/api/room', roomRouter);
 
 app.post('/', function (req, res) {
   res.status(201).json({

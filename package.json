@@ -28,6 +28,7 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "random-number": "^0.0.9",
     "randomstring": "^1.2.2",
     "sequelize": "^6.20.1"
   },
