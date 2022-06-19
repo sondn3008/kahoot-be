@@ -29,8 +29,17 @@ const updateValidate = (data) => {
   return user.validate(data);
 };
 
+const rfTokenValidate = (data) => {
+  const obj = joi.object({
+    accessToken: joi.string().required(),
+    rfToken: joi.string().required(),
+  });
+  return obj.validate(data);
+};
+
 export default {
   registerValidate,
   loginValidate,
   updateValidate,
+  rfTokenValidate,
 };

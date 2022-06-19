@@ -43,4 +43,16 @@ router.put('/update/:id', async (req, res) => {
   res.status(result.statusCode).json(result.json);
 });
 
+router.post('/refresh', async function (req, res) {
+  const data = req.body;
+
+  const checkData = validate.rfTokenValidate(data);
+  if (checkData.error != null) {
+    res.status(400).json({ message: checkData.error.details[0].message });
+  }
+
+  const result = await userService.refeshTokenUser(data);
+  res.status(result.statusCode).json(result.json);
+});
+
 export default router;

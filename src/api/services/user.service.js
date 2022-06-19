@@ -119,9 +119,34 @@ const update = async (id, data) => {
   return result;
 };
 
+const refeshTokenUser = async (data) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const { id } = await helper.verifyAccessToken(data.accessToken);
+
+  const user = await userModel.findOne({ where: { id: id }, raw: true });
+  if (data.rfToken === user.rfToken) {
+    const newAccessToken = await helper.makeAccessToken({ id: user.id });
+    result.statusCode = 200;
+    result.json = {
+      accessToken: newAccessToken,
+      rfToken: user.rfToken,
+    };
+  } else {
+    result.statusCode = 400;
+    result.json = { message: 'rfToken is not true' };
+  }
+
+  return result;
+};
+
 export default {
   loginUser,
   registerUser,
   getProfile,
   update,
+  refeshTokenUser,
 };

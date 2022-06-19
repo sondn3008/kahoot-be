@@ -49,7 +49,7 @@ const verifyAccessToken = async (accessToken) => {
     ignoreExpiration: true,
   };
   const user = await jwt.verify(accessToken, process.env.SECRET_KEY, opts);
-  return user.userId;
+  return user;
 };
 
 const createRftoken = async (accessToken) => {
