@@ -3,7 +3,7 @@ import validate from '../validation/room.validation';
 import roomService from '../services/room.service';
 
 const router = express.Router();
-
+// chưa chặn jwt
 router.post('/create/:user_id', async (req, res) => {
   const user_id = req.params.user_id;
 

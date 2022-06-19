@@ -49,7 +49,6 @@ app.get('/', function (req, res) {
 
 // app use route
 app.use('/api/user', userRouter);
-// app.use('/api/auth', authRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/question', questionRouter);
 
