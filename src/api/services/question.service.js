@@ -8,7 +8,6 @@ const createQuestion = async (data) => {
   };
 
   const room = await roomModel.findOne({ where: { id: data.room_id }, raw: true });
-  console.log(room);
   if (room === null) {
     result.statusCode = 400;
     result.json = {
@@ -68,16 +67,14 @@ const deleteQuestion = async (id) => {
     json: null,
   };
 
-  const question = await questionModel.findOne({ where: { id: id }, raw: true });
-
-  if (question === null) {
-    result.statusCode = 4000;
+  const ret = await questionModel.destroy({ where: { id: id }, raw: true });
+  if (ret === 0) {
+    result.statusCode = 400;
     result.json = {
       message: 'Question is not Exist!',
     };
+    return result;
   }
-
-  const ret = await questionModel.destroy({ where: { id: id }, raw: true });
 
   result.statusCode = 200;
   result.json = {

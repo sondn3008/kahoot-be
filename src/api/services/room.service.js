@@ -69,16 +69,15 @@ const deleteRoom = async (pin) => {
     json: null,
   };
 
-  const room = await roomModel.findOne({ where: { pin: pin }, raw: true });
+  const ret = await roomModel.destroy({ where: { pin: pin }, raw: true });
 
-  if (room === null) {
-    result.statusCode = 4000;
+  if (ret === 0) {
+    result.statusCode = 400;
     result.json = {
       message: 'Room is not Exist!',
     };
+    return result;
   }
-
-  const ret = await roomModel.destroy({ where: { pin: pin }, raw: true });
 
   result.statusCode = 200;
   result.json = {
