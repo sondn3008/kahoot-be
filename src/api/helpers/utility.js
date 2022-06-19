@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import randomstring from 'randomstring';
 
 const slugify = (text) => {
   return text
@@ -51,6 +52,10 @@ const verifyAccessToken = async (accessToken) => {
   return user.userId;
 };
 
+const createRftoken = async (accessToken) => {
+  return randomstring.generate(80);
+};
+
 export default {
   slugify,
   validPassword,
@@ -58,4 +63,5 @@ export default {
   makeCode,
   makeAccessToken,
   verifyAccessToken,
+  createRftoken,
 };

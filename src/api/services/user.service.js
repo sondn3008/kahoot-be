@@ -1,5 +1,6 @@
-import userModel from './user.model.js';
-import helper from '../helpers/utility.js';
+import userModel from '../models/user.model';
+import helper from '../helpers/utility';
+
 const loginUser = async (data) => {
   const result = {
     statusCode: null,
@@ -9,7 +10,7 @@ const loginUser = async (data) => {
   //check mail
   const user = await userModel.findOne({ where: { email: data.email }, raw: true });
   if (user === null) {
-    result.statusCode == 400;
+    result.statusCode = 400;
     result.json = {
       message: 'The email you entered is not registered.',
       authenticated: false,
@@ -30,13 +31,17 @@ const loginUser = async (data) => {
 
   //JWT
   const token = await helper.makeAccessToken({ id: user.id });
+  const rfToken = await helper.createRftoken();
+
+  const ret = userModel.update({ rfToken: rfToken }, { where: { id: user.id } });
 
   delete user.password;
   result.statusCode = 200;
   result.json = {
     authenticated: true,
-    user: user,
+    data: user,
     accessToken: token,
+    rfToken: rfToken,
   };
 
   return result;
@@ -50,7 +55,7 @@ const registerUser = async (data) => {
 
   const user = await userModel.findOne({ where: { email: data.email }, raw: true });
   if (user != null) {
-    result.statusCode == 400;
+    result.statusCode = 400;
     result.json = {
       message: 'Email has already registered.',
     };
@@ -63,17 +68,17 @@ const registerUser = async (data) => {
     email: data.email,
     name: data.name,
     password: pass,
+    image: data.image,
     address: data.address,
     phone: data.phone,
   };
 
   const add = await userModel.create(newUser);
-  console.log(add);
 
   result.statusCode = 200;
   delete newUser.password;
   result.json = {
-    user: newUser,
+    data: newUser,
     message: 'Register Success',
   };
 

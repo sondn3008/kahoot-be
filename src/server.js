@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 
 // routes
 import cors from 'cors';
-import userRouter from './api/user/user.router.js';
+import userRouter from './api/routers/user.router';
 
 // middlewares
 import authRouter from './api/middlewares/auth.mdw.js';
