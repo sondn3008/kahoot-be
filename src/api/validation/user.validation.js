@@ -20,7 +20,7 @@ const loginValidate = (data) => {
   return user.validate(data);
 };
 
-const updateUserValidate = (data) => {
+const updateValidate = (data) => {
   const user = joi.object({
     name: joi.string().max(255).required(),
     student_id: joi.number(),
@@ -32,5 +32,5 @@ const updateUserValidate = (data) => {
 export default {
   registerValidate,
   loginValidate,
-  updateUserValidate,
+  updateValidate,
 };

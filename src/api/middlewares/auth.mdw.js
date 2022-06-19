@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
+// còn trường hợp expire
 export default function (req, res, next) {
   const accessToken = req.headers['x-access-token'];
   if (accessToken) {

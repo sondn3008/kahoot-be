@@ -85,7 +85,43 @@ const registerUser = async (data) => {
   return result;
 };
 
+const getProfile = async (id) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const user = await userModel.findOne({ where: { id: id }, raw: true });
+  if (user === null) {
+    result.statusCode = 400;
+    result.json = {
+      message: 'Email is not Exist',
+    };
+    return result;
+  }
+
+  result.statusCode = 200;
+  delete user.password;
+  result.json = user;
+  return result;
+};
+
+const update = async (id, data) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const ret = await userModel.update(data, { where: { id: id }, raw: true });
+
+  result.statusCode = 200;
+  result.json = { message: 'Update Success!' };
+  return result;
+};
+
 export default {
   loginUser,
   registerUser,
+  getProfile,
+  update,
 };
