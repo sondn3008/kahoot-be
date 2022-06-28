@@ -4,6 +4,8 @@ const creatQuestionValidate = (data) => {
   const question = joi.object({
     room_id: joi.number().required(),
     question: joi.string().min(1).max(600).optional().required(),
+    image: joi.string().min(1).max(600).optional(),
+    time: joi.number().optional().required(),
     answer_A: joi.string().min(1).max(255).optional().required(),
     answer_B: joi.string().min(1).max(255).optional().required(),
     answer_C: joi.string().min(1).max(255).optional().required(),

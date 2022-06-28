@@ -18,6 +18,14 @@ Question.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    time: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     answer_A: {
       type: DataTypes.STRING,
       allowNull: false,

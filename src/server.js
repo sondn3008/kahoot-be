@@ -90,12 +90,13 @@ const socketServer = new WebSocketServer({ server });
 
 socketServer.on('connection', function (client) {
   console.log('Client connects successfully.');
+  console.log(socketServer.clients.size);
   client.send('hello client!');
 });
 
-const { address, port: currentPort } = socketServer.address();
+const { address } = socketServer.address();
 
-console.log(`WebSocket Server is running at ws:${address}:${currentPort}`);
+console.log(`WebSocket Server is running at ws:${address}`);
 
 export function broadcastAll(message) {
   for (let c of socketServer.clients) {
