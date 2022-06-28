@@ -10,6 +10,9 @@ import userRouter from './api/routers/user.router';
 import roomRouter from './api/routers/room.router';
 import questionRouter from './api/routers/question.router';
 
+// websocket
+import WebSocket, { WebSocketServer } from 'ws';
+
 // middlewares
 import authRouter from './api/middlewares/auth.mdw.js';
 
@@ -39,7 +42,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 app.get('/', function (req, res) {
-  res.json({
+  return res.json({
     msg: 'hello from expressjs',
   });
 });
@@ -78,6 +81,26 @@ app.use(function (err, req, res, next) {
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   const { address, port: currentPort } = server.address();
-
   console.log(`Kahoot API is listening at http://${address}:${currentPort}`);
 });
+
+// use Ws
+
+const socketServer = new WebSocketServer({ server });
+
+socketServer.on('connection', function (client) {
+  console.log('Client connects successfully.');
+  client.send('hello client!');
+});
+
+const { address, port: currentPort } = socketServer.address();
+
+console.log(`WebSocket Server is running at ws:${address}:${currentPort}`);
+
+export function broadcastAll(message) {
+  for (let c of socketServer.clients) {
+    if (c.readyState === WebSocket.OPEN) {
+      c.send(message);
+    }
+  }
+}

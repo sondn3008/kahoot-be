@@ -38,13 +38,13 @@ router.post('/refresh', async function (req, res) {
 
 // chưa chặn jwt
 router.get('/profile/:id', async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id || 0;
   const result = await userService.getProfile(id);
   return res.status(result.statusCode).json(result.json);
 });
 
 router.put('/update/:id', async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id || 0;
   const data = req.body;
   const result = await userService.update(id, data);
   return res.status(result.statusCode).json(result.json);

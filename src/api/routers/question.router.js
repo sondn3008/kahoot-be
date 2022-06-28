@@ -15,21 +15,21 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/all/:room_id', async (req, res) => {
-  const room_id = req.params.room_id;
+  const room_id = req.params.room_id || 0;
 
   const result = await questionService.getAllQuestionByRoomId(room_id);
   return res.status(result.statusCode).json(result.json);
 });
 
 router.get('/:id', async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id || 0;
 
   const result = await questionService.getQuestionById(id);
   return res.status(result.statusCode).json(result.json);
 });
 
 router.delete('/:id', async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id || 0;
 
   const result = await questionService.deleteQuestion(id);
   return res.status(result.statusCode).json(result.json);

@@ -12,14 +12,14 @@ router.post('/create/:user_id', async (req, res) => {
 });
 
 router.get('/:user_id', async (req, res) => {
-  const user_id = req.params.user_id;
+  const user_id = req.params.user_id || 0;
 
   const result = await roomService.getAllRoomByUserId(user_id);
   return res.status(result.statusCode).json(result.json);
 });
 
 router.delete('/:pin', async (req, res) => {
-  const pin = req.params.pin;
+  const pin = req.params.pin || 0;
 
   const result = await roomService.deleteRoom(pin);
   return res.status(result.statusCode).json(result.json);
