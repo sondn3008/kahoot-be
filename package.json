@@ -6,9 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules/babel/bin/babel.js src --source-maps --out-dir dist",
-    "start": "node --experimental-modules --es-module-specifier-resolution=node  src/server.js",
-    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node  src/server.js"
+    "start": "node --experimental-modules --es-module-specifier-resolution=node src/server.js",
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node src/server.js"
   },
   "author": "",
   "license": "ISC",
