@@ -1,15 +1,21 @@
 import express from 'express';
 import validate from '../validation/question.validation';
 import questionService from '../services/question.service';
+import fileSaveHelper from '../helpers/file/FileSaveHelper';
+import multer from 'multer';
+const upload = multer();
 
 const router = express.Router();
 // chưa chặn jwt
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
+  const file = req.file;
   const data = req.body;
   const checkData = validate.creatQuestionValidate(data);
   if (checkData.error != null) {
     return res.status(400).json({ message: checkData.error.details[0].message });
   }
+  const saveImage = await fileSaveHelper.saveImage(file);
+  data.image = saveImage.url;
   const result = await questionService.createQuestion(data);
   return res.status(result.statusCode).json(result.json);
 });

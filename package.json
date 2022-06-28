@@ -34,6 +34,7 @@
     "random-number": "^0.0.9",
     "randomstring": "^1.2.2",
     "sequelize": "^6.20.1",
+    "streamifier": "^0.1.1",
     "utf-8-validate": "^5.0.9",
     "ws": "^8.8.0"
   },

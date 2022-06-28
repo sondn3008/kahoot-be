@@ -1,48 +1,48 @@
 import cloudinary from 'cloudinary';
 import config from './CloudinaryConfig.js';
+import streamifier from 'streamifier';
 
-class SaveHelper {
-  constructor() {
-    cloudinary.config(config);
-  }
+cloudinary.v2.config(config);
 
-  saveImage(file) {
-    return new Promise((resolve, reject) => {
-      cloudinary.v2.uploader.upload(
-        file,
-        {
-          resource_type: 'image',
-          chunk_size: 6000000,
-          folder: 'image',
-        },
-        (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        },
-      );
-    });
-  }
-  saveVideo(file) {
-    return new Promise((resolve, reject) => {
-      cloudinary.v2.uploader.upload(
-        file,
-        {
-          resource_type: 'video',
-          folder: 'video',
-        },
-        (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        },
-      );
-    });
-  }
-}
+const saveImage = async (file) => {
+  return new Promise((resolve, reject) => {
+    let cld_upload_stream = cloudinary.v2.uploader.upload_stream(
+      {
+        folder: 'image',
+      },
+      (error, result) => {
+        if (result) {
+          resolve(result);
+        } else {
+          reject(error);
+          console.log(error);
+        }
+      },
+    );
+    streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+  });
+};
 
-export default SaveHelper;
+const saveVideo = (file) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.v2.uploader.upload_large(
+      file,
+      {
+        resource_type: 'video',
+        folder: 'video',
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      },
+    );
+  });
+};
+
+export default {
+  saveImage,
+  saveVideo,
+};
