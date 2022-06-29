@@ -14,8 +14,10 @@ router.post('/', upload.single('image'), async (req, res) => {
   if (checkData.error != null) {
     return res.status(400).json({ message: checkData.error.details[0].message });
   }
-  const saveImage = await fileSaveHelper.saveImage(file);
-  data.image = saveImage.url;
+  if (file) {
+    const saveImage = await fileSaveHelper.saveImage(file);
+    data.image = saveImage.url;
+  }
   const result = await questionService.createQuestion(data);
   return res.status(result.statusCode).json(result.json);
 });
