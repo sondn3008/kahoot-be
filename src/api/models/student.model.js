@@ -1,8 +1,8 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../config/db.config.js';
 
-class Guest extends Model {}
-Guest.init(
+class Student extends Model {}
+Student.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -37,8 +37,8 @@ Guest.init(
   },
   {
     sequelize,
-    modelName: 'guest',
+    modelName: 'student',
   },
 );
 
-export default Guest;
+export default Student;
