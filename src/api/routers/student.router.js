@@ -14,4 +14,44 @@ router.post('/', async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
+router.get('/room/name', async (req, res) => {
+  const data = req.body;
+  const checkData = validate.getStudentByNameValidate(data);
+  if (checkData.error != null) {
+    return res.status(400).json({ message: checkData.error.details[0].message });
+  }
+  const result = await studentService.getStudentByName(data);
+  return res.status(result.statusCode).json(result.json);
+});
+
+router.get('/room/name/question', async (req, res) => {
+  const data = req.body;
+  const checkData = validate.getStudentByQuestionIdAndNameValidate(data);
+  if (checkData.error != null) {
+    return res.status(400).json({ message: checkData.error.details[0].message });
+  }
+  const result = await studentService.getStudentByQuestionIdAndName(data);
+  return res.status(result.statusCode).json(result.json);
+});
+
+router.get('/room/question', async (req, res) => {
+  const data = req.body;
+  const checkData = validate.getStudentByQuestionIdValidate(data);
+  if (checkData.error != null) {
+    return res.status(400).json({ message: checkData.error.details[0].message });
+  }
+  const result = await studentService.getStudentByQuestionId(data);
+  return res.status(result.statusCode).json(result.json);
+});
+
+router.get('/room', async (req, res) => {
+  const data = req.body;
+  const checkData = validate.getStudentByRoomIdValidate(data);
+  if (checkData.error != null) {
+    return res.status(400).json({ message: checkData.error.details[0].message });
+  }
+  const result = await studentService.getStudentByRoomId(data);
+  return res.status(result.statusCode).json(result.json);
+});
+
 export default router;
