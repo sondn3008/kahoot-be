@@ -87,8 +87,60 @@ const deleteRoom = async (pin) => {
   return result;
 };
 
+const lockRoom = async (room_id) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const room = await roomModel.findOne({ where: { id: room_id } });
+  if (!room) {
+    console.log(room);
+    result.json = {
+      message: 'Room is not Exist!',
+    };
+    return result;
+  }
+
+  const ret = await roomModel.update({ locked: 1 }, { where: { id: room_id } });
+
+  result.statusCode = 200;
+  result.json = {
+    message: 'Lock Room Success!',
+  };
+
+  return result;
+};
+
+const unlockRoom = async (room_id) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const room = await roomModel.findOne({ where: { id: room_id } });
+  if (!room) {
+    result.statusCode = 400;
+    result.json = {
+      message: 'Room is not Exist!',
+    };
+    return result;
+  }
+
+  const ret = await roomModel.update({ locked: 0 }, { where: { id: room_id } });
+
+  result.statusCode = 200;
+  result.json = {
+    message: 'UnLock Room Success!',
+  };
+
+  return result;
+};
+
 export default {
   createRoom,
   getAllRoomByUserId,
   deleteRoom,
+  lockRoom,
+  unlockRoom,
 };

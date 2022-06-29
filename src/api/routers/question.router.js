@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/', upload.single('image'), async (req, res) => {
   const file = req.file;
   const data = req.body;
-  const checkData = validate.creatQuestionValidate(data);
+  const checkData = validate.createQuestionValidate(data);
   if (checkData.error != null) {
     return res.status(400).json({ message: checkData.error.details[0].message });
   }

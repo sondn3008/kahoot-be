@@ -16,6 +16,14 @@ const createQuestion = async (data) => {
     return result;
   }
 
+  if (room.locked === 1) {
+    result.statusCode = 400;
+    result.json = {
+      message: 'Room has locked',
+    };
+    return result;
+  }
+
   const add = await questionModel.create(data);
 
   result.statusCode = 200;

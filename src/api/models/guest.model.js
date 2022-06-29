@@ -1,8 +1,8 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../config/db.config.js';
 
-class Room extends Model {}
-Room.init(
+class Guest extends Model {}
+Guest.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,25 +10,35 @@ Room.init(
       autoIncrementIdentity: true,
       primaryKey: true,
     },
-    user_id: {
+    room_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    pin: {
+    question_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
-    locked: {
+    result: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
+    },
+    time: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    score: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'room',
+    modelName: 'guest',
   },
 );
 
-export default Room;
+export default Guest;

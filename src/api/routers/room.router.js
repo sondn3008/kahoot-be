@@ -25,4 +25,16 @@ router.delete('/:pin', async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
+router.post('/lock/:room_id', async (req, res) => {
+  const room_id = req.params.room_id;
+  const result = await roomService.lockRoom(room_id);
+  return res.status(result.statusCode).json(result.json);
+});
+
+router.post('/unlock/:room_id', async (req, res) => {
+  const room_id = req.params.room_id;
+  const result = await roomService.unlockRoom(room_id);
+  return res.status(result.statusCode).json(result.json);
+});
+
 export default router;

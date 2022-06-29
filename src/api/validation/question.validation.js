@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const creatQuestionValidate = (data) => {
+const createQuestionValidate = (data) => {
   const question = joi.object({
     room_id: joi.number().required(),
     question: joi.string().min(1).max(600).optional().required(),
@@ -15,5 +15,5 @@ const creatQuestionValidate = (data) => {
 };
 
 export default {
-  creatQuestionValidate,
+  createQuestionValidate,
 };
