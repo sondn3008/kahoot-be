@@ -10,6 +10,7 @@ import userRouter from './api/routers/user.router';
 import roomRouter from './api/routers/room.router';
 import questionRouter from './api/routers/question.router';
 import studentRouter from './api/routers/student.router';
+import realtimeRouter from './api/routers/realtime.router';
 
 // websocket
 import WebSocket, { WebSocketServer } from 'ws';
@@ -56,6 +57,7 @@ app.use('/api/user', userRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/question', questionRouter);
 app.use('/api/student', studentRouter);
+app.use('/api/realtime', realtimeRouter);
 
 app.post('/', function (req, res) {
   res.status(201).json({

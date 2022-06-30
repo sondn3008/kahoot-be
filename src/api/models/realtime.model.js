@@ -18,18 +18,6 @@ RealTime.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    result: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    time: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    score: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     sequelize,
