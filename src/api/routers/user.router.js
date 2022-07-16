@@ -23,7 +23,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
-router.post('/login', upload.single('image'), async (req, res) => {
+router.post('/login', upload.any(), async (req, res) => {
   const data = req.body;
   const checkData = validate.loginValidate(data);
   if (checkData.error != null) {
