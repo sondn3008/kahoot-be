@@ -23,7 +23,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', upload.single('image'), async (req, res) => {
   const data = req.body;
   const checkData = validate.loginValidate(data);
   if (checkData.error != null) {
@@ -52,9 +52,14 @@ router.get('/profile/:id', async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', upload.single('image'), async (req, res) => {
   const id = req.params.id || 0;
+  const file = req.file;
   const data = req.body;
+  if (file) {
+    const saveImage = await fileSaveHelper.saveImage(file);
+    data.image = saveImage.url;
+  }
   const result = await userService.update(id, data);
   return res.status(result.statusCode).json(result.json);
 });
