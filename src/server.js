@@ -30,12 +30,7 @@ const app = express();
 // db conection
 db.sync().then(console.log('Syncing Database Done!'));
 
-app.use(
-  cors({
-    origin: 'http://localhost:63342',
-    methods: 'GET,PATCH,POST,DELETE',
-  }),
-);
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
