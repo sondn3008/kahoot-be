@@ -8,6 +8,14 @@ const createRealtimeValidate = (data) => {
   return question.validate(data);
 };
 
+const deleteRealtimeValidate = (data) => {
+  const question = joi.object({
+    room_id: joi.number().required(),
+  });
+  return question.validate(data);
+};
+
 export default {
   createRealtimeValidate,
+  deleteRealtimeValidate,
 };

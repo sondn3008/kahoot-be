@@ -157,10 +157,37 @@ const getStudentByRoomId = async (data) => {
   return result;
 };
 
+const checkRoomByPin = async (pin) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const list = await roomModel.findOne({
+    where: {
+      pin: pin,
+    },
+  });
+
+  if (!list) {
+    result.statusCode = 400;
+    result.json = {
+      message: 'Room is not exist',
+    };
+    return result;
+  }
+
+  result.statusCode = 200;
+  result.json = list;
+
+  return result;
+};
+
 export default {
   createStudent,
   getStudentByName,
   getStudentByQuestionIdAndName,
   getStudentByQuestionId,
   getStudentByRoomId,
+  checkRoomByPin,
 };

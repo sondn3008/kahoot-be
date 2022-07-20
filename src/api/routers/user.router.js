@@ -11,6 +11,8 @@ const router = express.Router();
 router.post('/register', upload.single('image'), async (req, res) => {
   const data = req.body;
   const file = req.file;
+  console.log(data);
+  console.log(file);
   const checkData = validate.registerValidate(data);
   if (checkData.error != null) {
     return res.status(400).json({ message: checkData.error.details[0].message });

@@ -18,7 +18,9 @@ const createRealtime = async (data) => {
   }
 
   const add = await realtimeModel.create(data);
-  broadcastAll(JSON.stringify(add));
+
+  const listJoin = await realtimeModel.findAll({ where: { room_id: data.room_id } });
+  broadcastAll(JSON.stringify(listJoin));
 
   result.statusCode = 200;
   result.json = {
@@ -29,13 +31,16 @@ const createRealtime = async (data) => {
   return result;
 };
 
-const deletePeopleById = async (id) => {
+const deletePeopleById = async (id, data) => {
   const result = {
     statusCode: null,
     json: null,
   };
 
   const ret = await realtimeModel.destroy({ where: { id: id }, raw: true });
+
+  const listJoin = await realtimeModel.findAll({ where: { room_id: data.room_id } });
+  broadcastAll(JSON.stringify(listJoin));
 
   result.statusCode = 200;
   result.json = {

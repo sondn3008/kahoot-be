@@ -54,4 +54,11 @@ router.get('/room', async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
+router.get('/:pin', async (req, res) => {
+  const pin = req.params.pin;
+
+  const result = await studentService.checkRoomByPin(pin);
+  return res.status(result.statusCode).json(result.json);
+});
+
 export default router;

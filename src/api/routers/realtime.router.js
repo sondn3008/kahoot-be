@@ -27,8 +27,14 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const id = req.params.id || 0;
+  const data = req.body;
 
-  const result = await realtimeService.deletePeopleById(id);
+  const checkData = validate.deleteRealtimeValidate(data);
+  if (checkData.error != null) {
+    return res.status(400).json({ message: checkData.error.details[0].message });
+  }
+
+  const result = await realtimeService.deletePeopleById(id, data);
   return res.status(result.statusCode).json(result.json);
 });
 
