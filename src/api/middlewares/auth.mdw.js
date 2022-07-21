@@ -5,7 +5,6 @@ import 'dotenv/config';
 // còn trường hợp expire
 export default function (req, res, next) {
   const accessToken = req.headers['kahootapp-access-token'];
-  console.log(isJwtExpired(accessToken));
   if (accessToken) {
     if (isJwtExpired(accessToken) === false) {
       try {
