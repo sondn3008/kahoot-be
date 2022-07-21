@@ -21,8 +21,18 @@ const createRealtime = async (data) => {
     return result;
   }
 
-  const exist = await realtimeModel.findOne({ where: { room_id: data.room_id, name: data.name } });
-  if (exist) {
+  if (room) {
+    if (room.locked === 1) {
+      result.statusCode = 400;
+      result.json = {
+        message: 'Room has locked!',
+      };
+      return result;
+    }
+  }
+
+  const existName = await realtimeModel.findOne({ where: { room_id: data.room_id, name: data.name } });
+  if (existName) {
     result.statusCode = 400;
     result.json = {
       message: 'Name has existed!',
