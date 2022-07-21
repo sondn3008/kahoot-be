@@ -44,4 +44,18 @@ router.delete('/:id', authMdw, async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
+router.put('/:id', authMdw, upload.single('image'), async (req, res) => {
+  const id = req.params.id || 0;
+  const data = req.body;
+  const file = req.file;
+
+  if (file) {
+    const saveImage = await fileSaveHelper.saveImage(file);
+    data.image = saveImage.url;
+  }
+
+  const result = await questionService.updateQuestion(id, data);
+  return res.status(result.statusCode).json(result.json);
+});
+
 export default router;

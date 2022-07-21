@@ -92,9 +92,23 @@ const deleteQuestion = async (id) => {
   return result;
 };
 
+const updateQuestion = async (id, data) => {
+  const result = {
+    statusCode: null,
+    json: null,
+  };
+
+  const ret = await questionModel.update(data, { where: { id: id }, raw: true });
+
+  result.statusCode = 200;
+  result.json = { message: 'Update Success!' };
+  return result;
+};
+
 export default {
   createQuestion,
   getAllQuestionByRoomId,
   getQuestionById,
   deleteQuestion,
+  updateQuestion,
 };

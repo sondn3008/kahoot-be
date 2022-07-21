@@ -21,6 +21,15 @@ const createRealtime = async (data) => {
     return result;
   }
 
+  const exist = await realtimeModel.findOne({ where: { room_id: data.room_id, name: data.name } });
+  if (exist) {
+    result.statusCode = 400;
+    result.json = {
+      message: 'Name has existed!',
+    };
+    return result;
+  }
+
   const add = await realtimeModel.create(data);
 
   const listJoin = await realtimeModel.findAll({ where: { room_id: data.room_id, isDelete: 0 } });
