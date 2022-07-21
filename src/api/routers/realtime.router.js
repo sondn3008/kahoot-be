@@ -1,6 +1,7 @@
 import express from 'express';
 import validate from '../validation/realtime.validation';
 import realtimeService from '../services/realtime.service';
+import moment from 'moment';
 
 const router = express.Router();
 
@@ -36,6 +37,35 @@ router.delete('/:id', async (req, res) => {
 
   const result = await realtimeService.deletePeopleById(id, data);
   return res.status(result.statusCode).json(result.json);
+});
+
+router.get('/', async (req, res) => {
+  const ts = req.query.ts || 0;
+  const room_id = req.query.room_id || 0;
+
+  let loop = 0;
+  const fn = async function () {
+    const list = await realtimeService.findLoop(ts, room_id);
+    if (list.length > 0) {
+      res.json({
+        list,
+        return_ts: moment().unix(),
+      });
+    } else {
+      loop++;
+      // console.log(`loop: ${loop}`);
+      if (loop < 4) {
+        setTimeout(fn, 2500);
+      } else {
+        res.json({
+          list: [],
+          return_ts: moment().unix(),
+        });
+      }
+    }
+  };
+
+  await fn();
 });
 
 export default router;

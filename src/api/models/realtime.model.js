@@ -18,6 +18,10 @@ RealTime.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    isDelete: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     sequelize,

@@ -48,13 +48,13 @@ router.post('/refresh', async function (req, res) {
 });
 
 // chưa chặn jwt
-router.get('/profile/:id', async (req, res) => {
+router.get('/profile/:id', authMdw, async (req, res) => {
   const id = req.params.id || 0;
   const result = await userService.getProfile(id);
   return res.status(result.statusCode).json(result.json);
 });
 
-router.put('/update/:id', upload.single('image'), async (req, res) => {
+router.put('/update/:id', authMdw, upload.single('image'), async (req, res) => {
   const id = req.params.id || 0;
   const file = req.file;
   const data = req.body;

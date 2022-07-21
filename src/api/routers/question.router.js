@@ -2,12 +2,13 @@ import express from 'express';
 import validate from '../validation/question.validation';
 import questionService from '../services/question.service';
 import fileSaveHelper from '../helpers/file/FileSaveHelper';
+import authMdw from '../middlewares/auth.mdw';
 import multer from 'multer';
 const upload = multer();
 
 const router = express.Router();
 // chưa chặn jwt
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', authMdw, upload.single('image'), async (req, res) => {
   const file = req.file;
   const data = req.body;
   const checkData = validate.createQuestionValidate(data);
@@ -22,21 +23,21 @@ router.post('/', upload.single('image'), async (req, res) => {
   return res.status(result.statusCode).json(result.json);
 });
 
-router.get('/all/:room_id', async (req, res) => {
+router.get('/all/:room_id', authMdw, async (req, res) => {
   const room_id = req.params.room_id || 0;
 
   const result = await questionService.getAllQuestionByRoomId(room_id);
   return res.status(result.statusCode).json(result.json);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authMdw, async (req, res) => {
   const id = req.params.id || 0;
 
   const result = await questionService.getQuestionById(id);
   return res.status(result.statusCode).json(result.json);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMdw, async (req, res) => {
   const id = req.params.id || 0;
 
   const result = await questionService.deleteQuestion(id);

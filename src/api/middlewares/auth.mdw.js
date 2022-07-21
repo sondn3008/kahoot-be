@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 // còn trường hợp expire
 export default function (req, res, next) {
-  const accessToken = req.headers['x-access-token'];
+  const accessToken = req.headers['kahootApp-access-token'];
   if (accessToken) {
     try {
       const decoded = jwt.verify(accessToken, process.env.SECRET_KEY);
